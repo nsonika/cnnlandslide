@@ -1,0 +1,38 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landslide Detection</title>
+</head>
+<body>
+    <h1>Landslide Detection</h1>
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit" value="Upload">
+    </form>
+    {% if message %}
+    <p>{{ message }}</p>
+    {% endif %}
+    {% if file_path %}
+    <img src="{{ file_path }}" alt="Uploaded Image">
+    {% endif %}
+</body>
+</html> -->
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Landslide Detection</title>
+</head>
+<body>
+    <h1>Landslide Detection</h1>
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*">
+        <input type="submit" value="Detect">
+    </form>
+</body>
+</html>
