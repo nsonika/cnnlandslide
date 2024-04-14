@@ -1,38 +1,91 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Landslide Detection</title>
-</head>
-<body>
-    <h1>Landslide Detection</h1>
-    <form method="post" enctype="multipart/form-data">
-        <input type="file" name="file">
-        <input type="submit" value="Upload">
-    </form>
-    {% if message %}
-    <p>{{ message }}</p>
-    {% endif %}
-    {% if file_path %}
-    <img src="{{ file_path }}" alt="Uploaded Image">
-    {% endif %}
-</body>
-</html> -->
-
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
     <title>Landslide Detection</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        .container{
+    background-image: url('./satellite.jpg?v=123');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    font-family: "Raleway", sans-serif;
+}
+
+.content {
+    background-color: rgba(255, 255, 255, 0.8); 
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 600px;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+.form-container {
+  margin: 0 auto;
+}
+
+
+/* Styles for headings */
+h1, h2, h3 {
+    color: #333; /* Dark gray color for headings */
+    text-align: center;
+}
+
+.form-container {
+      display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+    }
+    </style>
 </head>
 <body>
+    <div class="container" style="background-image: url('./satellite.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center; background-attachment: fixed;">
+    
+  
     <h1>Landslide Detection</h1>
+    <div class="form-container">
     <form method="post" enctype="multipart/form-data">
-        <input type="file" name="image" accept="image/*">
+        <input type="file" name="image" accept="image/*" id="image-input">
         <input type="submit" value="Detect">
     </form>
+    {% if error_message %}
+    <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
+    <img id="uploaded-image" alt="Uploaded Image" style="display: none;">
+    {% if prediction %}
+    <p>Prediction: {{ prediction }}</p>
+    {% endif %}
+</div>
+</div>
+    <script>
+        const imageInput = document.getElementById('image-input');
+        const uploadedImage = document.getElementById('uploaded-image');
+
+        // Check if there is previously uploaded image data in local storage
+        const uploadedImageData = localStorage.getItem('uploadedImageData');
+        if (uploadedImageData) {
+            uploadedImage.src = uploadedImageData;
+            uploadedImage.style.display = 'block';
+        }
+
+        // Event listener for file input change
+        imageInput.addEventListener('change', function (e) {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                const imageData = event.target.result;
+                // Store the data URL in local storage
+                localStorage.setItem('uploadedImageData', imageData);
+                uploadedImage.src = imageData; // Set image source
+                uploadedImage.style.display = 'block'; // Show the image
+            };
+            reader.readAsDataURL(e.target.files[0]);
+        });
+    </script>
 </body>
 </html>
