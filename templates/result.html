@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Landslide Detection - Results</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap">
+    <style>
+        body {
+            font-family: "Raleway", sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            text-align: center;
+            max-width: 600px;
+        }
+
+        .prediction {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .uploaded-image {
+            max-width: 100px;
+        }
+
+
+        .back-btn {
+            background-color: #000b76;
+            color: #fff;
+            border-radius: 5px;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .back-btn:hover {
+            background-color: #0056b3;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Landslide Detection Results</h1>
+
+        <!-- Display the prediction result -->
+        {% if prediction %}
+            <p class="prediction">Prediction: {{ prediction }}</p>
+        {% endif %}
+
+        <!-- Display the uploaded image -->
+        {% if image_filename %}
+            <img src="{{ url_for('static', filename='uploads/' + image_filename) }}" 
+                 alt="Uploaded Image" class="uploaded-image">
+        {% else %}
+            <p>No image available.</p>
+        {% endif %}
+
+        <br /><br />
+        <a href="{{ url_for('index') }}">
+            <button class="back-btn">Upload Another Image</button>
+        </a>
+    </div>
+</body>
+</html>
+

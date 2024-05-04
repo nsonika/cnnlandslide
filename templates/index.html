@@ -121,7 +121,9 @@ h1, h2, h3 {
 </html> 
  -->
 
- 
+<!--  
+
+
 
  <!DOCTYPE html>
 <html>
@@ -286,5 +288,125 @@ h1, h2, h3 {
     </script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html> -->
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Landslide Detection</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,700">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: "Raleway", sans-serif;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #000b76;
+            margin-bottom: 30px;
+        }
+        
+        .file-input {
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .file-input input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .file-input button {
+            background-color: #000b76;
+            color: #fff;
+            border-radius: 5px;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .file-input button:hover {
+            background-color: #0056b3;
+        }
+        
+        .file-name {
+            display: inline-block;
+            margin-left: 10px;
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+        
+        .submit-btn {
+            background-color: #28a745;
+            color: #fff;
+            border-radius: 5px;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background-color: #1e7e34;
+        }
+        
+        .error-message {
+            color: #dc3545;
+            margin-bottom: 10px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Landslide Detection</h1>
+        <form method="post" enctype="multipart/form-data">
+            <div class="file-input">
+                <button>Choose File</button>
+                <input type="file" name="image" id="image-input" accept="image/*">
+                <span class="file-name" id="file-name">No file chosen</span>
+            </div>
+            <br /><br />
+            <input type="submit" value="Detect" class="submit-btn">
+        </form>
+        {% if error_message %}
+        <p class="error-message">{{ error_message }}</p>
+        {% endif %}
+    </div>
+
+    <!-- JavaScript to update the displayed file name -->
+    <script>
+        document.getElementById("image-input").addEventListener("change", function (e) {
+            var fileName = e.target.files[0].name;
+            document.getElementById("file-name").textContent = fileName;
+        });
+    </script>
 </body>
 </html>
