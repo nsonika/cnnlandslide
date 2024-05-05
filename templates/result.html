@@ -1,74 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Landslide Detection - Results</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap">
-    <style>
-        body {
-            font-family: "Raleway", sans-serif;
-            text-align: center;
-            padding: 50px;
-            background-color: #f8f9fa;
-        }
-
-        .container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            display: inline-block;
-            text-align: center;
-            max-width: 600px;
-        }
-
-        .prediction {
-            font-weight: bold;
-            margin-top: 20px;
-        }
-
-        .uploaded-image {
-            max-width: 100px;
-        }
-
-
-        .back-btn {
-            background-color: #000b76;
-            color: #fff;
-            border-radius: 5px;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .back-btn:hover {
-            background-color: #0056b3;
-        }
-        
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Landslide Detection - Results</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <style>
+    .hero {
+      background: black url(static/pexels-sat.jpg) center / cover;
+    }
+    body {
+      font-family: "Raleway", sans-serif;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Landslide Detection Results</h1>
-
-        <!-- Display the prediction result -->
-        {% if prediction %}
-            <p class="prediction">Prediction: {{ prediction }}</p>
-        {% endif %}
-
-        <!-- Display the uploaded image -->
+  <!-- .hero -->
+  <section class="hero is-fullheight">
+    <section class="section">
+      <div class="container">
+        <center>
+          <h1 class="title" style="font-size:2.5rem; color:white;">Landslide Detection Results</h1>
+        </center>
+      </div>
+    </section>
+    <div class="columns">
+      <div class="column is-narrow"></div>
+      <div class="column is-one-half has-text-centered">
+        <!-- <figure class="image is-1by1"> -->
         {% if image_filename %}
-            <img src="{{ url_for('static', filename='uploads/' + image_filename) }}" 
-                 alt="Uploaded Image" class="uploaded-image">
+        <img class="pred_img" src="{{ url_for('static', filename='uploads/' + image_filename) }}" alt="Uploaded Image">
         {% else %}
-            <p>No image available.</p>
+        <p style="color:white;">No image available.</p>
         {% endif %}
-
-        <br /><br />
-        <a href="{{ url_for('index') }}">
-            <button class="back-btn">Upload Another Image</button>
-        </a>
+        <!-- </figure> -->
+      </div>
+      <div class="column is-one-half has-text-centered" style="font-size:2.5rem">
+        {% if prediction %}
+        <h2 id="pred" style="color:black">
+          <span style="font-weight: bold; color:whitesmoke;">Prediction: {{ prediction }}</span>
+        </h2>
+        {% endif %}
+        <br>
+        <a href="{{ url_for('index') }}" class="button is-black is-inverted" style="font-size:1.5rem">Upload Another Image</a>
+      </div>
     </div>
+    <section class="section">
+      <div class="container"></div>
+    </section>
+  </section>
+  <!-- /.hero -->
+  <script src="/static/script.js"></script>
 </body>
 </html>
-
