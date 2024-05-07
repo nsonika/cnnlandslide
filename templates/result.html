@@ -1,56 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Landslide Detection - Results</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
-  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-  <style>
-    .hero {
-      background: black url(static/pexels-sat.jpg) center / cover;
-    }
-    body {
-      font-family: "Raleway", sans-serif;
-    }
-  </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Landslide Detection - Results</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <style>
+        .hero {
+            background: black url(static/pexels-sat.jpg) center / cover;
+        }
+
+        body {
+            font-family: "Raleway", sans-serif;
+        }
+    </style>
 </head>
 <body>
-  <!-- .hero -->
-  <section class="hero is-fullheight">
+<!-- .hero -->
+<section class="hero is-fullheight">
     <section class="section">
-      <div class="container">
-        <center>
-          <h1 class="title" style="font-size:2.5rem; color:white;">Landslide Detection Results</h1>
-        </center>
-      </div>
+        <div class="container">
+            <center>
+                <h1 class="title" style="font-size:2.5rem; color:white;">Landslide Detection Results</h1>
+            </center>
+        </div>
     </section>
     <div class="columns">
-      <div class="column is-narrow"></div>
-      <div class="column is-one-half has-text-centered">
-        <!-- <figure class="image is-1by1"> -->
-        {% if image_filename %}
-        <img class="pred_img" src="{{ url_for('static', filename='uploads/' + image_filename) }}" alt="Uploaded Image">
-        {% else %}
-        <p style="color:white;">No image available.</p>
-        {% endif %}
-        <!-- </figure> -->
-      </div>
-      <div class="column is-one-half has-text-centered" style="font-size:2.5rem">
-        {% if prediction %}
-        <h2 id="pred" style="color:black">
-          <span style="font-weight: bold; color:whitesmoke;">Prediction: {{ prediction }}</span>
-        </h2>
-        {% endif %}
-        <br>
-        <a href="{{ url_for('index') }}" class="button is-black is-inverted" style="font-size:1.5rem">Upload Another Image</a>
-      </div>
+        <div class="column is-narrow"></div>
+        <div class="column is-one-half has-text-centered">
+            <!-- <figure class="image is-1by1"> -->
+            {% if image_filename %}
+            <img class="pred_img" src="{{ url_for('static', filename='uploads/' + image_filename) }}" alt="Uploaded Image">
+            {% else %}
+            <p style="color:white;">No image available.</p>
+            {% endif %}
+            <!-- </figure> -->
+        </div>
+        <div class="column is-one-half has-text-centered" style="font-size:2.5rem">
+            {% if prediction %}
+            <h2 id="pred" style="color:black">
+                <span style="font-weight: bold; color:whitesmoke;">Prediction: {{ prediction }}</span>
+            </h2>
+            {% if confidence_score %}
+            <h2 style="font-size: 2rem; color:rgb(223, 133, 15);">
+                Confidence: <span style="font-weight: bold; color:whitesmoke;">{{ '{:.2f}%'.format(confidence_score * 100) }}</span>
+            </h2>
+            {% endif %}
+            {% endif %}
+            <br>
+            <a href="{{ url_for('index') }}" class="button is-black is-inverted" style="font-size:1.5rem">Upload Another Image</a>
+        </div>
     </div>
     <section class="section">
-      <div class="container"></div>
+        <div class="container"></div>
     </section>
-  </section>
-  <!-- /.hero -->
-  <script src="/static/script.js"></script>
+</section>
+<!-- /.hero -->
+<script src="/static/script.js"></script>
 </body>
 </html>

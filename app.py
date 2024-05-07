@@ -80,14 +80,25 @@ def index():
                     image = Image.open(image_file.stream)
                     image_tensor = transform(image).unsqueeze(0)
 
-                    with torch.no_grad():
-                        output = model(image_tensor)
-                        _, predicted = torch.max(output.data, 1)
-                        prediction = class_names[predicted.item()]
+                    # with torch.no_grad():
+                    #     output = model(image_tensor)
+                    #     _, predicted = torch.max(output.data, 1)
+                    #     prediction = class_names[predicted.item()]
 
-                    # Store the filename and prediction in the session
+                    # # Store the filename and prediction in the session
+                    # session['image_filename'] = filename
+                    # session['prediction'] = prediction
+
+                    with torch.no_grad():
+                         output = model(image_tensor)
+                         _, predicted = torch.max(output.data, 1)
+                         prediction = class_names[predicted.item()]
+                         confidence_score = torch.softmax(output, dim=1)[0][predicted].item()
+
+                    # Store the filename, prediction, and confidence score in the session
                     session['image_filename'] = filename
                     session['prediction'] = prediction
+                    session['confidence_score'] = confidence_score
 
                     # Redirect to the result page
                     return redirect(url_for('result'))
@@ -97,17 +108,30 @@ def index():
 
     return render_template('index.html', error_message=error_message)
 
+# @app.route('/result', methods=['GET'])
+# def result():
+#     # Retrieve the filename and prediction from the session
+#     image_filename = session.get('image_filename', None)
+#     prediction = session.get('prediction', None)
+
+#     # If no filename or prediction, redirect to the index page
+#     if not image_filename or not prediction:
+#         return redirect(url_for('index'))
+
+#     return render_template('result.html', image_filename=image_filename, prediction=prediction)
+
 @app.route('/result', methods=['GET'])
 def result():
-    # Retrieve the filename and prediction from the session
+    # Retrieve the filename, prediction, and confidence score from the session
     image_filename = session.get('image_filename', None)
     prediction = session.get('prediction', None)
+    confidence_score = session.get('confidence_score', None)
 
-    # If no filename or prediction, redirect to the index page
-    if not image_filename or not prediction:
+    # If no filename, prediction, or confidence score, redirect to the index page
+    if not image_filename or not prediction or confidence_score is None:
         return redirect(url_for('index'))
 
-    return render_template('result.html', image_filename=image_filename, prediction=prediction)
+    return render_template('result.html', image_filename=image_filename, prediction=prediction, confidence_score=confidence_score)
 
 if __name__ == '__main__':
     app.run(debug=True)
