@@ -21,7 +21,7 @@ model_path = os.path.join(project_dir, 'models', 'model.pth')
 
 # Create a new instance of the pre-trained model with custom modifications
 model = models.resnet50(pretrained=False)
-class_names = ['landslide', 'nonlandslide']
+class_names = ['Landslide', 'Nonlandslide']
 
 # Modify the fully connected layer to match the desired output
 num_ftrs = model.fc.in_features
